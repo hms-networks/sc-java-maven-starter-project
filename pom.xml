@@ -363,6 +363,14 @@
 
   <!-- PROJECT DEPENDENCIES/LIBRARIES -->
   <dependencies>
+    <!-- Code Test Framework -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- Ewon ETK Library -->
     <dependency>
       <groupId>com.hms_networks.americas.sc.mvnlibs</groupId>
