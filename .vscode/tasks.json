@@ -36,6 +36,12 @@
             "type": "shell",
             "command": "mvn clean -f pom.xml",
             "group": "build"
+        },
+        {
+            "label": "UPDATE (Get Latest Dependencies)",
+            "type": "shell",
+            "command": "mvn clean -U -f pom.xml",
+            "group": "build"
         }
     ]
 }
