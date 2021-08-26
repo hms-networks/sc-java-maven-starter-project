@@ -34,7 +34,7 @@
         {
             "label": "CLEAN (Remove Build Output)",
             "type": "shell",
-            "command": "mvn verify -f pom.xml",
+            "command": "mvn clean -f pom.xml",
             "group": "build"
         }
     ]
