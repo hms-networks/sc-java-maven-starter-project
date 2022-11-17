@@ -169,6 +169,7 @@
           <includeDependencySources>true</includeDependencySources>
           <dependencySourceExcludes>
             <dependencySourceExclude>com.hms_networks.americas.sc.mvnlibs:ewon-etk:*</dependencySourceExclude>
+            <dependencySourceExclude>commons-lang:commons-lang:*</dependencySourceExclude>
           </dependencySourceExcludes>
         </configuration>
         <executions>
