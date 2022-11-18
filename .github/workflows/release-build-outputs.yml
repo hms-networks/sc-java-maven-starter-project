@@ -16,8 +16,10 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CHANGELOG_FILE_NAME: CHANGELOG.md
   README_FILE_NAME: README.md
+  README_PDF_FILE_NAME: README.pdf
   QUICK_START_FILE_NAME: QUICK-START.md
-  RELEASE_ZIP_INCLUDED: $CHANGELOG_FILE_NAME $README_FILE_NAME $QUICK_START_FILE_NAME LICENSE src .classpath .project pom.xml build.xml starting-files images
+  QUICK_START_PDF_FILE_NAME: QUICK-START.pdf
+  RELEASE_ZIP_INCLUDED: CHANGELOG.md README.md QUICK-START.md LICENSE src .classpath .project pom.xml build.xml starting-files images
   RELEASE_JAR_NAME_REGEX: '*-full.jar'
   RELEASE_JAVADOCS_NAME_REGEX: '*-javadoc.jar'
   RELEASE_BODY_FILE: RELEASE-BODY.md
@@ -65,31 +67,21 @@ jobs:
         run: grep -Pzo "(?<=##\sVersion\s$VERSION_NUMBER[\r\n])((.|\r|\n|\r\n)*?(?=##\sVersion.*)|(.|\r|\n|\r\z)*)" $CHANGELOG_FILE_NAME >> $RELEASE_BODY_FILE
         # gets section of changelog between (not including) version-specific header and next version header using regex look-back and look-ahead
 
-      - name: Create Release in Repository Releases
-        if: ${{ contains(github.ref,'alpha') != true && contains(github.ref,'beta') != true && contains(github.ref,'pre') != true }}
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node for Markdown conversion to PDF
+        uses: actions/setup-node@v3
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-          body_path: ${{ env.RELEASE_BODY_FILE }}
+          node-version: 16
 
-      - name: Create Pre-Release in Repository Releases
-        if: ${{ contains(github.ref,'alpha') == true || contains(github.ref,'beta') == true || contains(github.ref,'pre') == true }}
-        id: create_pre_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Pre-Release ${{ github.ref }}
-          draft: false
-          prerelease: true
-          body_path: ${{ env.RELEASE_BODY_FILE }}
+      - name: Install md-to-pdf for Markdown conversion to PDF
+        run: |
+          npm uninstall -g md-to-pdf
+          npm install -g md-to-pdf --unsafe-perm 
+
+      - name: Create PDF of README.md
+        run: md-to-pdf $README_FILE_NAME
+
+      - name: Create PDF of QUICK-START.md
+        run: md-to-pdf $QUICK_START_FILE_NAME
 
       - name: Get Name of Artifact
         run: |
@@ -98,74 +90,30 @@ jobs:
           echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
           echo "ARTIFACT_PATHNAME=${ARTIFACT_PATHNAME}" >> $GITHUB_ENV
 
-      - name: Upload Release Zip Asset to Created Release
-        if: ${{ contains(github.ref,'alpha') != true && contains(github.ref,'beta') != true && contains(github.ref,'pre') != true }}
-        id: upload-release-asset-zip
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release.zip
-          asset_name: ${{ github.event.repository.name }}-${{ env.VERSION_NUMBER }}.zip
-          asset_content_type: application/zip
+      - name: Get Name of Release (RepoName-Version)
+        run: echo "RELEASE_NAME=${{ github.event.repository.name }}-${{ env.VERSION_NUMBER }}" >> $GITHUB_ENV
 
-      - name: Upload Release Jvmrun Asset to Created Release
-        if: ${{ contains(github.ref,'alpha') != true && contains(github.ref,'beta') != true && contains(github.ref,'pre') != true }}
-        id: upload-release-asset-jvmrun
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./starting-files/jvmrun
-          asset_name: jvmrun
-          asset_content_type: text/plain
+      - name: Rename Release Files (Append Repo Name and Version Number)
+        run: |
+          mv release.zip ${{ env.RELEASE_NAME }}.zip
+          mv ${{ env.README_PDF_FILE_NAME }} ${{ env.RELEASE_NAME }}-${{ env.README_PDF_FILE_NAME }}
+          mv ${{ env.QUICK_START_PDF_FILE_NAME }} ${{ env.RELEASE_NAME }}-${{ env.QUICK_START_PDF_FILE_NAME }}
 
-      - name: Upload Release Jar Asset to Created Release
-        if: ${{ contains(github.ref,'alpha') != true && contains(github.ref,'beta') != true && contains(github.ref,'pre') != true }}
-        id: upload-release-asset-jar
-        uses: actions/upload-release-asset@v1
+      - name: Create Release in Repository Releases
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.ARTIFACT_PATHNAME }}
-          asset_name: ${{ env.ARTIFACT_NAME }}
-          asset_content_type: application/java-archive
-
-      - name: Upload Pre-Release Zip Asset to Created Pre-Release
-        if: ${{ contains(github.ref,'alpha') == true || contains(github.ref,'beta') == true || contains(github.ref,'pre') == true }}
-        id: upload-pre-release-asset-zip
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_pre_release.outputs.upload_url }}
-          asset_path: ./release.zip
-          asset_name: ${{ github.event.repository.name }}-${{ env.VERSION_NUMBER }}.zip
-          asset_content_type: application/zip
-
-      - name: Upload Pre-Release Jvmrun Asset to Created Pre-Release
-        if: ${{ contains(github.ref,'alpha') == true || contains(github.ref,'beta') == true || contains(github.ref,'pre') == true }}
-        id: upload-pre-release-asset-jvmrun
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_pre_release.outputs.upload_url }}
-          asset_path: ./starting-files/jvmrun
-          asset_name: jvmrun
-          asset_content_type: text/plain
-
-      - name: Upload Pre-Release Jar Asset to Created Pre-Release
-        if: ${{ contains(github.ref,'alpha') == true || contains(github.ref,'beta') == true || contains(github.ref,'pre') == true }}
-        id: upload-pre-release-asset-jar
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_pre_release.outputs.upload_url }}
-          asset_path: ${{ env.ARTIFACT_PATHNAME }}
-          asset_name: ${{ env.ARTIFACT_NAME }}
-          asset_content_type: application/java-archive
+          tag_name: ${{ github.ref }}
+          target_commitish: ${{ github.sha }}
+          name: Release ${{ env.VERSION_NUMBER }}
+          draft: false
+          prerelease: ${{ contains(github.ref,'alpha') == true || contains(github.ref,'beta') == true || contains(github.ref,'pre') == true }}
+          generate_release_notes: false
+          body_path: ${{ env.RELEASE_BODY_FILE }}
+          files: |
+            ./starting-files/*
+            ${{ env.ARTIFACT_PATHNAME }}
+            ${{ env.RELEASE_NAME }}.zip
+            ${{ env.RELEASE_NAME }}-${{ env.README_PDF_FILE_NAME }}
+            ${{ env.RELEASE_NAME }}-${{ env.QUICK_START_PDF_FILE_NAME }}
