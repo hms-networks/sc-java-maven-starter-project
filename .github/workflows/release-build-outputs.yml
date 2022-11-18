@@ -64,8 +64,10 @@ jobs:
         # gets substring of github.ref after and including 'v', for example refs/tags/v1.0.0 results in v1.0.0
 
       - name: Extract version-specific change list from CHANGELOG.md
-        run: grep -Pzo "(?<=##\sVersion\s$VERSION_NUMBER[\r\n])((.|\r|\n|\r\n)*?(?=##\sVersion.*)|(.|\r|\n|\r\z)*)" $CHANGELOG_FILE_NAME >> $RELEASE_BODY_FILE
-        # gets section of changelog between (not including) version-specific header and next version header using regex look-back and look-ahead
+        run: |
+          grep -Pzo "(?<=##\sVersion\s$VERSION_NUMBER[\r\n])((.|\r|\n|\r\n)*?(?=##\sVersion.*)|(.|\r|\n|\r\z)*)"  $CHANGELOG_FILE_NAME >> $RELEASE_BODY_FILE.tmp
+          tr -d '\0' < $RELEASE_BODY_FILE.tmp > $RELEASE_BODY_FILE
+        # gets section of changelog between (not including) version-specific header and next version header using regex look-back and look-ahead and removes trailing NULL characters
 
       - name: Setup Node for Markdown conversion to PDF
         uses: actions/setup-node@v3
