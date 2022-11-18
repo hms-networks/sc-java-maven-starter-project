@@ -48,6 +48,11 @@ jobs:
       - name: Compile Java Files With Maven
         run: mvn package -f pom.xml
 
+      - name: Ensure \\r\\n line endings in jvmrun
+        run: |
+          sudo apt-get install dos2unix -y
+          unix2dos ./starting-files/jvmrun
+
       - name: Build Release Archive
         run: |
           zip release -r $RELEASE_ZIP_INCLUDED $(find target -name $RELEASE_JAR_NAME_REGEX) $(find target -name $RELEASE_JAVADOCS_NAME_REGEX)
