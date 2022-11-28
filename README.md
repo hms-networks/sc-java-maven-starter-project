@@ -68,12 +68,51 @@ As required, you can include additional libraries or dependencies using the Mave
 <dependencies>
    ...
    <dependency>
-      <groupId>com.hms_networks.americas.sc.mvnlibs</groupId>
-      <artifactId>sc-flexy-tag-info-lib</artifactId>
-      <version>1.2</version>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
    </dependency>
    ...
 </dependencies>
+```
+
+Adding dependencies may introduce warnings or errors during the Maven build process which are unable to be addressed in this project. These warnings and errors can typically be ignored. 
+
+For dependencies with errors in Javadoc documentation, you can omit the dependency's Javadoc documentation by adding a corresponding `<dependencySourceExclude></dependencySourceExclude>` to the `org.apache.maven.plugins:maven-javadoc-plugin` `<plugin></plugin>` section of your `pom.xml`.
+
+For example, to exclude the Javadoc documentation for the `commons-lang:commons-lang` dependency, add the following to the `org.apache.maven.plugins:maven-javadoc-plugin` `<plugin></plugin>` section of your `pom.xml`:
+
+```xml
+<dependencySourceExclude>commons-lang:commons-lang:*</dependencySourceExclude>
+```
+
+A sample `org.apache.maven.plugins:maven-javadoc-plugin` `<plugin></plugin>` section of the `pom.xml` with the `commons-lang` dependency excluded is shown below:
+
+```xml
+<plugin>
+   <groupId>org.apache.maven.plugins</groupId>
+   <artifactId>maven-javadoc-plugin</artifactId>
+   <version>...</version>
+   <configuration>
+      <javadocExecutable>${build.jdk.path}${file.separator}bin${file.separator}javadoc
+      </javadocExecutable>
+      <finalName>${project.artifactId}-${project.version}</finalName>
+      <show>private</show>
+      <includeDependencySources>true</includeDependencySources>
+      <dependencySourceExcludes>
+         <dependencySourceExclude>com.hms_networks.americas.sc.mvnlibs:ewon-etk:*</dependencySourceExclude>
+         <dependencySourceExclude>commons-lang:commons-lang:*</dependencySourceExclude>
+      </dependencySourceExcludes>
+   </configuration>
+   <executions>
+      <execution>
+         <phase>package</phase>
+         <goals>
+            <goal>aggregate-jar</goal>
+         </goals>
+      </execution>
+   </executions>
+</plugin>
 ```
 
 #### [Solution Center Repository](#table-of-contents)
