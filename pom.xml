@@ -129,10 +129,11 @@
             </goals>
             <configuration>
               <finalName>${project.artifactId}-${project.version}-archive</finalName>
+              <tarLongFileMode>gnu</tarLongFileMode>
               <appendAssemblyId>false</appendAssemblyId>
-              <descriptorRefs>
-                <descriptorRef>project</descriptorRef>
-              </descriptorRefs>
+              <descriptors>
+                <descriptor>${project.basedir}${file.separator}src${file.separator}assembly${file.separator}sc-project.xml</descriptor>
+              </descriptors>
             </configuration>
           </execution>
         </executions>
