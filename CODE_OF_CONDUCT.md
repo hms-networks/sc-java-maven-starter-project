@@ -1,4 +1,4 @@
-# Java Starter Project Code of Conduct
+# Solution Center Java Maven Starter Project Code of Conduct
 
 ## Our Pledge
 
