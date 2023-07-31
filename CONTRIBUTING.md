@@ -1,4 +1,4 @@
-# Java Starter Project Contribution Guidelines
+# Solution Center Java Maven Starter Project Contribution Guidelines
 
 Thank you for your interest in contributing to the project.
 
@@ -26,7 +26,7 @@ If you like the project, but don't have time to contribute, there are other easy
 
 ## Code of Conduct
 
-This project and everyone who participates in it is governed by the project's [Code of Conduct](CODE_OF_CONDUCT.md).
+This project and everyone who participates in it is governed by the project's [Code of Conduct](https://github.com/hms-networks/sc-java-maven-starter-project/blob/main/CODE_OF_CONDUCT.md).
 
 By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainer(s).
 
@@ -57,8 +57,8 @@ We use GitHub issues to track feature and enhancement requests. If you'd like to
 - Make sure that you are using the latest version.
 - Make sure that you are using the latest Ewon firmware.
   - Check for updates at [https://www.ewon.biz/technical-support/pages/firmware](https://www.ewon.biz/technical-support/pages/firmware).
-- Read the [README.md](README.md) carefully to find out if the functionality is already covered.
-- Perform a search for existing [Issues](https://github.com/{APPLICATION NAME}/issues) or [Discussions](https://github.com/hms-networks/sc-java-maven-starter-project/discussions) to see if the feature or enhancement has already been suggested.
+- Read the [Documentation](https://hms-networks.github.io/sc-java-maven-starter-project/docs) carefully to find out if the functionality is already covered.
+- Perform a search for existing [Issues](https://github.com/hms-networks/sc-java-maven-starter-project/issues) or [Discussions](https://github.com/hms-networks/sc-java-maven-starter-project/discussions) to see if the feature or enhancement has already been suggested.
   - If the feature or enhancement has already been suggested, add a comment to the existing issue or discussion instead of opening a new one.
 - Make sure the feature or enhancement is with the scope and aims of the project. New features shall be useful to the majority of users, not a small subset.
   - If a feature or enhancement targets a minority of users, it is advised to consider writing an add-on or library.
@@ -73,7 +73,7 @@ Documentation and additional information about the Ewon Java development environ
 
 Changes made to the documentation in this project must be made in an individual commit, or accompany the commit with the relevant source code changes.
 
-Documentation for this project shall be written in present passive voice and is governed by the project's [Code of Conduct](CODE_OF_CONDUCT.md).
+Documentation for this project shall be written in present passive voice and is governed by the project's [Code of Conduct](https://github.com/hms-networks/sc-java-maven-starter-project/blob/main/CODE_OF_CONDUCT.md).
 
 #### Source Code
 
