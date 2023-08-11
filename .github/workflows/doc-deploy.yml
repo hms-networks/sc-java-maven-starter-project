@@ -1,15 +1,17 @@
 # HMS Networks Solution Center
 # Docusaurus Deploy Action for Maven-based Ewon ETK Projects
-# Version: 1.0
+# Version: 1.1
 #
 # This action is configured to automatically run when a push
-# is made to the `main` branch or is manually triggered.
+# is made to either the `main` or `gh-pages-staging` branch,
+# or when a run is manually triggered.
 name: Docusaurus Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - main
+      - gh-pages-staging
   workflow_dispatch:
 
 jobs:
