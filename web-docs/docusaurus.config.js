@@ -107,7 +107,6 @@ const config = {
               },
             ],
           },
-          
         ],
         copyright: `Copyright © ${new Date().getFullYear()} HMS Networks Inc. Built with Docusaurus.`,
       },
