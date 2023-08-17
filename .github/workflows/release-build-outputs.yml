@@ -1,6 +1,6 @@
 # HMS Networks Solution Center
 # Build Outputs Action for Maven-based Ewon ETK Project Releases
-# Version: 2.1
+# Version: 2.2
 #
 # This action is configured to automatically run when a release
 # tag is created in the following syntax: `v*`.
@@ -14,12 +14,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  CHANGELOG_FILE_NAME: CHANGELOG.md
-  README_FILE_NAME: README.md
-  README_PDF_FILE_NAME: README.pdf
-  QUICK_START_FILE_NAME: QUICK-START.md
-  QUICK_START_PDF_FILE_NAME: QUICK-START.pdf
-  RELEASE_ZIP_INCLUDED: CHANGELOG.md README.md QUICK-START.md LICENSE src .classpath .project pom.xml build.xml starting-files images
+  CHANGELOG_FILE_NAME: web-docs/docs/02-CHANGELOG.mdx
+  RELEASE_ZIP_INCLUDED: README.md LICENSE src .classpath .project pom.xml build.xml starting-files
   RELEASE_JAR_NAME_REGEX: '*-full.jar'
   RELEASE_JAVADOCS_NAME_REGEX: '*-javadoc.jar'
   RELEASE_BODY_FILE: RELEASE-BODY.md
@@ -72,11 +68,9 @@ jobs:
       - name: Get Name of Release (RepoName-Version)
         run: echo "RELEASE_NAME=${{ github.event.repository.name }}-${{ env.VERSION_NUMBER }}" >> $GITHUB_ENV
 
-      - name: Rename Release Files (Append Repo Name and Version Number)
+      - name: Rename Release File(s) (Append Repo Name and Version Number)
         run: |
           mv release.zip ${{ env.RELEASE_NAME }}.zip
-          mv ${{ env.README_PDF_FILE_NAME }} ${{ env.RELEASE_NAME }}-${{ env.README_PDF_FILE_NAME }}
-          mv ${{ env.QUICK_START_PDF_FILE_NAME }} ${{ env.RELEASE_NAME }}-${{ env.QUICK_START_PDF_FILE_NAME }}
 
       - name: Check if Tag SEMVER indicates a Pre-Release Build
         id: check_pre_release
@@ -104,5 +98,3 @@ jobs:
             ./starting-files/*
             ${{ env.ARTIFACT_PATHNAME }}
             ${{ env.RELEASE_NAME }}.zip
-            ${{ env.RELEASE_NAME }}-${{ env.README_PDF_FILE_NAME }}
-            ${{ env.RELEASE_NAME }}-${{ env.QUICK_START_PDF_FILE_NAME }}
