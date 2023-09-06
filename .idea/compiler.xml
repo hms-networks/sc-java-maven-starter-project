@@ -9,8 +9,5 @@
         <module name="sc-java-maven-starter-project" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="sc-java-maven-starter-project" target="1.4" />
-    </bytecodeTargetLevel>
   </component>
 </project>
