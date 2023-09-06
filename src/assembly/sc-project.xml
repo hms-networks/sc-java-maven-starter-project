@@ -16,7 +16,7 @@
       <excludes>
         <exclude>**/*.log</exclude>
         <exclude>**/${project.build.directory}/**</exclude>
-        <exclude>**/.eclipse-launch-configs/**</exclude>
+        <exclude>**/.eclipse/**</exclude>
         <exclude>**/.idea/**</exclude>
         <exclude>**/.vscode/**</exclude>
         <exclude>**/.github/**</exclude>
