@@ -15,11 +15,3 @@ module.exports = {
   repoLatestReleaseUrl: 'https://github.com/' + ScDocusaurusConfig.repoOwnerName + '/' + ScDocusaurusConfig.repoName + '/releases/latest',
   repoNewIssueUrl: 'https://github.com/' + ScDocusaurusConfig.repoOwnerName + '/' + ScDocusaurusConfig.repoName + '/issues/new',
 };
-
-
-
-
-
-
-
-
