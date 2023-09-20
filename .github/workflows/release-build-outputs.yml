@@ -1,6 +1,6 @@
 # HMS Networks Solution Center
 # Build Outputs Action for Maven-based Ewon ETK Project Releases
-# Version: 2.2
+# Version: 2.2.1
 #
 # This action is configured to automatically run when a release
 # tag is created in the following syntax: `v*`.
@@ -64,6 +64,13 @@ jobs:
           grep -Pzo "(?<=##\sVersion\s$VERSION_NUMBER[\r\n])((.|\r|\n|\r\n)*?(?=##\sVersion.*)|(.|\r|\n|\r\z)*)"  $CHANGELOG_FILE_NAME >> $RELEASE_BODY_FILE.tmp
           tr -d '\0' < $RELEASE_BODY_FILE.tmp > $RELEASE_BODY_FILE
         # gets section of changelog between (not including) version-specific header and next version header using regex look-back and look-ahead and removes trailing NULL characters
+
+      - name: Get Name of Artifact
+        run: |
+          ARTIFACT_PATHNAME=$(ls target/*-full.jar | head -n 1)
+          ARTIFACT_NAME=$(basename $ARTIFACT_PATHNAME)
+          echo "ARTIFACT_NAME=${ARTIFACT_NAME}" >> $GITHUB_ENV
+          echo "ARTIFACT_PATHNAME=${ARTIFACT_PATHNAME}" >> $GITHUB_ENV
 
       - name: Get Name of Release (RepoName-Version)
         run: echo "RELEASE_NAME=${{ github.event.repository.name }}-${{ env.VERSION_NUMBER }}" >> $GITHUB_ENV
