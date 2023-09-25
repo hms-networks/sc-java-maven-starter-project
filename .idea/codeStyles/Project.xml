@@ -92,6 +92,11 @@
       <option name="JD_KEEP_EMPTY_RETURN" value="false" />
       <option name="JD_INDENT_ON_CONTINUATION" value="true" />
     </JavaCodeStyleSettings>
+    <Markdown>
+      <option name="MAX_LINES_AROUND_HEADER" value="0" />
+      <option name="MAX_LINES_AROUND_BLOCK_ELEMENTS" value="0" />
+      <option name="MAX_LINES_BETWEEN_PARAGRAPHS" value="0" />
+    </Markdown>
     <Objective-C>
       <option name="INDENT_NAMESPACE_MEMBERS" value="0" />
       <option name="INDENT_C_STRUCT_MEMBERS" value="2" />
