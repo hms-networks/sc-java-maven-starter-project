@@ -1,0 +1,104 @@
+# HMS Networks Solution Center
+# Code Style Review Action for Maven-based Ewon ETK Projects
+# Version: 1.0
+#
+# This action is configured to automatically run when a push
+# is made or pull request is merged to the `main` or `master`
+# branch.
+
+name: Code Style Review
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  checkstyle:
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 16
+
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            target/buildJdk
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Resolve outdated Reviewdog comments
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr_issue_number = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const botName = "github-actions[bot]";
+            
+            // List review comments on this issue/PR
+            const comments = await github.rest.pulls.listReviewComments({
+              owner,
+              repo,
+              issue_number: pr_issue_number,
+            });
+            
+            // Filter comments from the bot
+            const botComments = comments.data.filter((comment) => comment.user.login === botName);
+            
+            // Loop through bot comments and resolve them (if they are outdated)
+            for (const comment of botComments) {
+              const outdated = comment.outdated;
+              const comment_id = comment.id;
+              if (outdated) {
+                await github.rest.pulls.updateReviewComment({
+                  owner,
+                  repo,
+                  comment_id,
+                  body: "This comment is from an outdated version of the code style review. This comment has been resolved automatically.",
+                });
+                console.log(`Resolved outdated comment with id ${comment_id}`);
+              }
+            }            
+
+      - name: Install Reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Run Checkstyle via Maven
+        run: mvn checkstyle:checkstyle -f pom.xml
+        continue-on-error: true
+
+      - name: Run Reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Need PAT for private repositories
+          # Also need to check https://github.com/apps/reviewdog as may be able to simply allow access to all repositories
+        run: |
+          cat ./target/checkstyle-result.xml | reviewdog -f=checkstyle -name="Checkstyle" -reporter=github-pr-review -level=warning -fail-on-error=true
+
+      - name: Approve Pull Request if No Checkstyle Violations
+        uses: actions/github-script@v6
+        if: success()
+        with:
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: "APPROVE"
+            })
