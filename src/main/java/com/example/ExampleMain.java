@@ -5,7 +5,6 @@ package com.example;
  * method with sample code to begin with.
  *
  * @author HMS Networks, MU Americas Solution Center
- * @version 0.0.1
  */
 public class ExampleMain {
 
