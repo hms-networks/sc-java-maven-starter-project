@@ -3,7 +3,7 @@
 # Version: 2.2
 #
 # This action is configured to automatically run when a pull
-# request is made to the `main` or `master` branch.
+# request is made to the `main` branch.
 
 name: Commit Format Check
 
