@@ -1,1 +1,1 @@
--heapsize 25M -classpath /usr/sc-java-maven-starter-project-0.0.4-full.jar -emain com.example.ExampleMain
+-heapsize 25M -classpath /usr/sc-java-maven-starter-project-0.0.5-full.jar -emain com.example.ExampleMain
