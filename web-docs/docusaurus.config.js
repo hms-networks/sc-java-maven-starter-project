@@ -32,6 +32,19 @@ const config = {
     locales: ['en'],
   },
 
+  // Plugins
+  plugins: [
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "sc-common-docs", // used by CLI, must be path safe
+        sourceBaseUrl: "https://raw.githubusercontent.com/hms-networks/sc-ewon-flexy-common-docs/THK_DEV/docs/", // the base url for the markdown (gets prepended to all of the documents when fetching)
+        outDir: "docs/_partial/common", // the base directory to output to.
+        documents: ["_logging.mdx","_sys_req_ewon_fw.mdx","_sys_req_java.mdx","_sys_req_maven.mdx"], // the file names to download
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
