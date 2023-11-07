@@ -7,6 +7,7 @@ const ScDocusaurusConfig = {
   meta: 'Homepage for the HMS Networks MU Americas Solution Center Java Starter Project.',
   configFileName : 'ExampleConfigurationFile.json',
   applicationJarFileName : 'sc-java-maven-starter-project-X.Y.Z-full.jar',
+  commonDocRepoTargetBranchOrTag: 'v1.0.0',
 };
 
 // EXPORT ZONE - DON'T TOUCH BELOW THIS LINE
@@ -16,4 +17,5 @@ module.exports = {
   repoArchiveUrl: 'https://github.com/' + ScDocusaurusConfig.repoOwnerName + '/' + ScDocusaurusConfig.repoName + '/archive/refs/heads/main.zip',
   repoLatestReleaseUrl: 'https://github.com/' + ScDocusaurusConfig.repoOwnerName + '/' + ScDocusaurusConfig.repoName + '/releases/latest',
   repoNewIssueUrl: 'https://github.com/' + ScDocusaurusConfig.repoOwnerName + '/' + ScDocusaurusConfig.repoName + '/issues/new',
+  commonDocsRepoUrl: 'https://raw.githubusercontent.com/hms-networks/sc-ewon-flexy-common-docs/' + ScDocusaurusConfig.commonDocRepoTargetBranchOrTag + '/',
 };
