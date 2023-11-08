@@ -5,6 +5,7 @@ const ScDocusaurusConfig = {
   title: 'Solution Center Java Starter Project',
   description: 'Kick off Java development on the Ewon Flexy with the HMS Networks Solution Center Java Starter Project.',
   meta: 'Homepage for the HMS Networks MU Americas Solution Center Java Starter Project.',
+  configFileName : 'ExampleConfigurationFile.json',
 };
 
 // EXPORT ZONE - DON'T TOUCH BELOW THIS LINE
