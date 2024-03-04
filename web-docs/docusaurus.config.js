@@ -81,7 +81,35 @@ const config = {
           "popover.js"
         ],
       }
-    ]
+    ],
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: true,
+        offlineModeActivationStrategies: [
+            'appInstalled',
+            'standalone',
+            'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: '/img/pwa/HMS-Logo-192x192.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: 'rgb(4, 61, 93)',
+          },
+        ],
+      },
+    ],
   ],
 
   presets: [
