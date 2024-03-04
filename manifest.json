@@ -4,36 +4,36 @@
   "description": "Home of the Ewon Java Maven Starter Project",
   "icons": [
     {
-      "src": "/img/pwa/HMS-Logo-515x512.svg",
+      "src": "/sc-java-maven-starter-project/img/pwa/HMS-Logo-515x512.svg",
       "type": "image/svg+xml",
       "sizes": "512x512"
     },
     {
-      "src": "/img/pwa/HMS-Logo-192x192.png",
+      "src": "/sc-java-maven-starter-project/img/pwa/HMS-Logo-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/img/pwa/HMS-Logo-512x512.png",
+      "src": "/sc-java-maven-starter-project/img/pwa/HMS-Logo-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "id": "/?source=pwa",
-  "start_url": "/?source=pwa",
+  "id": "/sc-java-maven-starter-project/?source=pwa",
+  "start_url": "/sc-java-maven-starter-project/?source=pwa",
   "background_color": "#043d5d",
   "display": "standalone",
-  "scope": "/",
+  "scope": "/sc-java-maven-starter-project/",
   "theme_color": "#043d5d",
   "shortcuts": [
     {
       "name": "Homepage",
       "short_name": "Home",
       "description": "View the homepage",
-      "url": "/?source=pwa&link=homepage",
+      "url": "/sc-java-maven-starter-project/?source=pwa&link=homepage",
       "icons": [
         {
-          "src": "/img/pwa/home-icon-colorized-public-domain-192x.png",
+          "src": "/sc-java-maven-starter-project/img/pwa/home-icon-colorized-public-domain-192x.png",
           "sizes": "192x192"
         }
       ]
@@ -42,10 +42,10 @@
       "name": "Documentation",
       "short_name": "Docs",
       "description": "View the documentation",
-      "url": "/docs?source=pwa",
+      "url": "/sc-java-maven-starter-project/docs?source=pwa",
       "icons": [
         {
-          "src": "/img/pwa/documentation-icon-colorized-public-domain-192x.png",
+          "src": "/sc-java-maven-starter-project/img/pwa/documentation-icon-colorized-public-domain-192x.png",
           "sizes": "192x192"
         }
       ]
@@ -54,10 +54,10 @@
       "name": "Quick Start Guide",
       "short_name": "Quick Start",
       "description": "View the quick start guide",
-      "url": "/docs/quick-start-guide?source=pwa",
+      "url": "/sc-java-maven-starter-project/docs/quick-start-guide?source=pwa",
       "icons": [
         {
-          "src": "/img/pwa/quick-start-icon-colorized-public-domain-192x.png",
+          "src": "/sc-java-maven-starter-project/img/pwa/quick-start-icon-colorized-public-domain-192x.png",
           "sizes": "192x192"
         }
       ]
