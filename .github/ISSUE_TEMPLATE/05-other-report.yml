@@ -15,13 +15,15 @@ body:
     attributes:
       value: |
         Please provide a clear and concise description of the report you are submitting.
-  - type: checkboxes
+  - type: dropdown
     attributes:
       label: 'Do I have a custom or modified version of the application?'
       description: 'Some questions or concerns may be specific to custom or modified versions of the application.'
       options:
-        - label: 'Yes'
-          required: true
+        - 'No'
+        - 'Yes'
+    validations:
+      required: true
   - type: input
     id: firmware-version
     attributes:
