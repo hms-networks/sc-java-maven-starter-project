@@ -1,8 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+import { themes as prismThemes } from 'prism-react-renderer';
 const ScDocusaurusConfig = require('./ScDocusaurusConfig');
 
 /** @type {import('@docusaurus/types').Config} */
@@ -41,6 +40,7 @@ const config = {
         name: "imported-docs",
         sourceBaseUrl: ScDocusaurusConfig.commonDocsRepoUrl + 'docs/',
         outDir: "docs/imported",
+        noRuntimeDownloads: true,
         documents: [
           "setup/_configuration.mdx",
           "setup/_installation_or_upgrade.mdx",
@@ -57,6 +57,7 @@ const config = {
         name: "imported-images",
         sourceBaseUrl: ScDocusaurusConfig.commonDocsRepoUrl + 'img',
         outDir: "static/img/imported",
+        noRuntimeDownloads: true,
         documents: [
           "ewon/pages/ewon-tag-config-page-hist-logging.webp",
           "ewon/pages/ewon-web-page-home.webp",
@@ -76,6 +77,7 @@ const config = {
         name: "imported-js",
         sourceBaseUrl: ScDocusaurusConfig.commonDocsRepoUrl + 'js',
         outDir: "src/components/imported",
+        noRuntimeDownloads: true,
         documents: [
           "highlight.js",
           "popover.js"
@@ -136,7 +138,7 @@ const config = {
         title: ScDocusaurusConfig.title,
         logo: {
           alt: 'HMS Networks Logo',
-          src: 'img/hms-logo-rgb.webp',
+          src: '/img/imported/hms/hms-logo-rgb.webp',
         },
         items: [
           {
@@ -191,8 +193,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} HMS Networks Inc. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
     }),
 };
