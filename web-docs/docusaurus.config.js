@@ -196,6 +196,10 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      image: '/img/imported/hms/hms-logo-rgb.webp',
+      metadata: [
+        {name: 'og:type', content: 'website'},
+      ]
     }),
 };
 
