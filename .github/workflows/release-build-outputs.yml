@@ -1,7 +1,7 @@
 # HMS Networks; Americas
 # Build Outputs Action for Maven-based Ewon ETK Project Releases
-# Version: 3.0.0
-# Date: February 8, 2024
+# Version: 3.0.1
+# Date: March 18, 2024
 #
 # This action is configured to automatically run when a release
 # tag is created in the following syntax: `v*`.
@@ -91,7 +91,7 @@ jobs:
           target_commitish: ${{ github.sha }}
           name: Release ${{ env.VERSION_NUMBER }}
           draft: false
-          prerelease: ${{ steps.check_pre_release.outputs.IS_PRE_RELEASE }}
+          prerelease: ${{ env.IS_PRE_RELEASE }}
           generate_release_notes: false
           body_path: ${{ env.RELEASE_BODY_FILE }}
           files: |
