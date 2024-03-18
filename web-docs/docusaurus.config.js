@@ -199,6 +199,7 @@ const config = {
       image: '/img/imported/hms/hms-logo-rgb.webp',
       metadata: [
         {name: 'og:type', content: 'website'},
+        {name: 'keywords', content: ScDocusaurusConfig.keywords},
       ]
     }),
 };

@@ -8,6 +8,7 @@ const ScDocusaurusConfig = {
   configFileName : 'ExampleConfigurationFile.json',
   applicationJarFileName : 'sc-java-maven-starter-project-X.Y.Z-full.jar',
   commonDocRepoTargetBranchOrTag: 'v1.0.0',
+  keywords: 'ewon, jtk, java, maven, project, template, build, ant, modern, structure, starting, guide, features, license, requirements, troubleshooting, support',
 };
 
 // EXPORT ZONE - DON'T TOUCH BELOW THIS LINE
